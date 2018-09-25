@@ -1,0 +1,148 @@
+\documentclass[12pt]{article}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{\baselineskip}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\pagestyle{fancy}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  keepspaces=false,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+\begin{document}
+
+\lhead{{\bf CSCI 3403 \\ Homework 2} }
+\rhead{{\bf Brennon Lee \\ Fall 2018, CU-Boulder}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\vspace{-3mm}
+
+\begin{enumerate}
+
+	% QUESTION 1
+	\item{Given the security levels TOPSECRET, SECRET, CONFIDENTIAL, and UNCLASSIFIED and categories A, B, and C, specify what type of access (read, write, both, or neither) is allowed in each of the following situations:}\\
+
+  \textbf{Reading with categories has the following logic: Subject s can read object o iff L(s) dom L(o) and s has permission to read o. So 'Reading Down' is allowed} \\
+
+  \textbf{Writing with categories has a similiar logic: Subject s can write object o iff L(o) dom L(s) and s has permission to write o. So 'Writing up' is allowed} \\
+
+  \begin{enumerate}
+    \item{Paul cleared for TOPSECRET, [A,C] and a document classified SECRET, [B,C]} \\
+
+    \textbf{Neither since [A,C] is not a subset of [B,C] and TS $>$ S.} \\
+
+    \item{Anna, cleared for CONFIDENTIAL,[C] and a document classified CONFIDENTIAL,[B]} \\
+
+    \textbf{Neither since [C] \not\subset [B] and [B] \not\subset [C]} \\
+
+    \item{ Jessie cleared for SECRET,[C] and a document classified CONFIDENTIAL,[C]} \\
+
+    \textbf{Read only since Secret $>$ Confidential and $[C]$ \subset $[C]$} \\
+
+    \item{Sammie cleared for TOPSECRET,[A,C] and a document classified CONFIDENTIAL,[A]} \\
+
+    \textbf{Read only since Top Secret $>$ Confidential and $[A]$ \subset $[A,C]$}  \\
+
+    \item{Robin UNCLASSIFIED and a document classified CONFIDENTIAL,[B]} \\
+
+    \textbf{Neither since the empty set $[ \ ]$ can't be a subset of $[B]$} \\
+
+  \end{enumerate}
+
+	\vspace{20pt}
+
+
+  \textbf{From the Book}
+	% QUESTION 2.1
+	\item [2.1] {Suppose someone suggests the following way to confirm that the two of you are both in possession of the same secret key. You create a random bit string the length of the key, XOR it with the key, and then send the result over the channel. Your partner XORs the incoming block with the key (which should be the same as your key) and sends it back. You check, and if what you receive is your original random string, you have verified that your partner has the same secret key, yet neither of you has ever transmitted the key. Is there a flaw in this scheme?} \\
+
+  \textbf{The problem with this is that an eavesdropper will see K xor R being sent. Then the eavesdropper sees R sent back. Then the eavesdropper could do (K xor R) xor R which will equal the key K since the R's cancel each other out.}  \\
+
+  % QUESTION 2.2 part a
+  \item [2.2.a] {This problem uses a real-world example of a symmetric cipher, from a old U.S. Special Forces manual. The document, filename \textit{Special Forces.pdf}, is available at box.com/CompSec4e. Using the two keys (memory words) \textit{cryptographic} and \textit{network security}, encrypt the following message: } \\
+
+   {"Be at the third pillar from the left outside the lyceum theatre tonight at seven. If you are distrustful bring two friends."} \\
+
+   Make reasonable assumptions about how to treat redundant letters and excess letters in the memory words and how to treat spaces and puncuation. Indicate what your assumptions are.
+
+  \textbf{Assumptions are that redundant letters and spaces / puncations are going to be removed.} \\
+  \textbf{Doing so, our first key becomes \textit{cryptogahi}. And we can write the message in the following matrix format:}
+  \begin{tabular}{llllllllll}
+    b & e & a & t & t & h & e & t & h & i \\
+    r & d & p & i & l & l & a & r & f & r \\
+    o & m & t & h & e & l & e & f & t & o \\
+    u & t & s & i & d & e & t & h & e & l \\
+    y & c & e & u & m & t & h & e & a & t \\
+    r & e & t & o & n & i & g & h & t & a \\
+    t & s & e & v & e & n & i & f & y & o \\
+    u & a & r & e & d & i & s & t & r & u \\
+    s & t & f & u & l & b & r & i & n & g \\
+    t & w & o & f & r & i & e & n & d & s
+  \end{tabular}
+
+  \textbf{The first key has alphabectical order "a, c, g, h, i, o, p ,r, t, y" and each will have a value assigned according to this order from 1 - 10.}
+  \textbf{Since "a" has original position of 8, the 8th column will go first. Then c has position 1 so then column 1 will go next. G has position 7, so 7th goes next and so on:}
+  \textbf{h} \rightarrow \textbf{9th column, i} \rightarrow \textbf{10th column, o} \rightarrow \textbf{6th column, p} \rightarrow \textbf{4th column, r} \rightarrow \textbf{2nd column, t} \rightarrow \textbf{5th column, y} \rightarrow \textbf{3rd column.} \\
+  \textbf{The encyption that yields is the following:} \\
+  \textit{trfhehftinbrouyrtusteaethgisrehfteatyrndiroltaougshlletinibitihiuoveufedmtcesatwtledmnedlraptseterfo} \\
+
+  \textbf{Doing the same thing for the second key gives:} \textit{networkscu}\\
+  \textbf{And the matrix becomes:}
+  \begin{tabular}{llllllllll}
+    t & r & f & h & e & h & f & t & i & n \\
+    b & r & o & u & y & r & t & u & s & t \\
+    e & a & e & t & h & g & i & s & r & e \\
+    h & f & t & e & a & t & y & r & n & d \\
+    i & r & o & l & t & a & o & u & g & s \\
+    h & l & l & e & t & i & n & i & b & i \\
+    t & i & h & i & u & o & v & e & u & f \\
+    e & d & m & t & c & e & s & a & t & w \\
+    t & l & e & d & m & n & e & d & l & r \\
+    a & p & t & s & e & t & e & r & f & o
+  \end{tabular}
+
+  \textbf{The alphabectical order of the second key is: "c,e,k,n,o,r,s,t,u,w"} \\
+  \textbf{The columns read according to the values associated with the alphabectical order of the key gives: }
+  \textbf{c} \rightarrow \textbf{9th column, e} \rightarrow \textbf{2nd column, k}  \rightarrow \textbf{7th column, n}  \rightarrow \textbf{1st column, o}  \rightarrow \textbf{5th column, r}  \rightarrow \textbf{6th column, s}  \rightarrow \textbf{8th column, t}  \rightarrow \textbf{3rd, u}  \rightarrow \textbf{10th, w}  \rightarrow \textbf{4th column.} \\
+  \textbf{The final encrypted message is again the columns read in order which gives: } \\
+  \textit{isrngbutlfrrafrlidlpftiyonvseetbehihtetaeyhattucmehrgtaioenttusruieadrfoetolhmetntedsifwrohuteleitds}
+
+\vspace{20pt}
+
+% QUESTION 2.3
+\item [2.3] {Consider a very simple symmetric block encryption algorithm, in which 64-bits blocks of plaintext are encrypted using a 128-bit key. Encryption is defined as} \\
+$$C = (P \oplus K_{0}) \boxplus K_{1}$$
+Where $C =$ ciphertext; $K = $ secret key; $K_{0} = $ leftmost 64 bits of K; $K_{1} =$ rightmost bits of K, $\oplus$ bitwise exclusive and $\boxplus$ = addition mod $2^{64}$
+\begin{enumerate}
+  \item Show the decryption equation. That is, show the equation $P$ as a function of $C, K_{1}$ and $K_{2}$ \\
+  $$\boxed{$$(C \boxminus K_{1}) \oplus K_{0} = P$$}$$ \\
+
+  \item Suppose an adversary has access to two sets of the plaintexts and their corresponding cichertexts and wishes to determine $K$. We have the two equations: \\
+  $$C = (P \oplus K_{0}) \boxplus K_{1}; C^{'} = (P^{'} \oplus K_{0}) \boxplus K_{1}$$
+
+  First, derive an equation in one unknown. Is it possible to proceed further to solve for $K_{0}$? \\
+  $$K_{0} = (C \boxminus K_{1}) \oplus P $$
+  \textbf{By plugging the above into the second equation for $K_{0}$, one could simplify the algebra and solve for $K_{1}$. Then take that value and plug back into the first equation to solve and get $K_{0}$}
+\end{enumerate}
+  \end{enumerate}
+\end{document}
