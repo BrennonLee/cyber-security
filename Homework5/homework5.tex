@@ -94,10 +94,47 @@ Eve observes and records all the messages exchanged.  Eve also observes that a p
   \begin{enumerate}
     \item For a traditional DAC scheme, how many relationships between users and permissions must be defined? \\
 
+    \textbf{This relationship is defined as $\sum_{i=1}^N (U_i \cdot P_i)$}\\
+
     \item For a RBAC scheme, how many relationships between users an permissions must be defined? \\
+
+    \textbf{This relationship is defined as $\sum_{i=1}^N (U_i + P_i)$}\\
+
   \end{enumerate}
 
-\item \textbf{Problem 4.12} In the example of the online entertainment store in Section 4.6, with the finer-grained policy that includes premium and regular users, list all of the roles and all of the privileges that need to be defined for the RBAC model.
+\item \textbf{Problem 4.12} In the example of the online entertainment store in Section 4.6, with the finer-grained policy that includes premium and regular users, list all of the roles and all of the privileges that need to be defined for the RBAC model. \\
+
+\textbf{List of Roles:}
+\begin{enumerate}
+  \item \textbf{Premium Customer}
+  \begin{enumerate}
+    \item \textbf{Age of Adult is greater than or equal to 17.} \\
+    \item \textbf{Age of Juvenile is greater than or equal to 13 but less than 17.} \\
+    \item \textbf{Child is less than 13.} \\
+  \end{enumerate}
+  \item \textbf{Regular Customer}
+  \begin{enumerate}
+    \item \textbf{Age of Adult is greater than or equal to 17.} \\
+    \item \textbf{Age of Juvenile is greater than or equal to 13 but less than 17.} \\
+    \item \textbf{Child is less than 13.} \\
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{List of Privileges:}
+\begin{enumerate}
+  \item \textbf{If Premium Customer, can view new releases}
+  \begin{enumerate}
+    \item \textbf{Adult can view all movies} \\
+    \item \textbf{Juvenile can view PG-13 & PG movies} \\
+    \item \textbf{Child can only view PG movies} \\
+  \end{enumerate}
+  \item \textbf{If Regular Customer, can only view Old Releases}
+  \begin{enumerate}
+    \item \textbf{Adult can view all old movies} \\
+    \item \textbf{Juvenile can view PG-13 & PG old movies} \\
+    \item \textbf{Child can only view PG old movies} \\
+  \end{enumerate}
+\end{enumerate}
 
 \end{enumerate}
 \end{document}
