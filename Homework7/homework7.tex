@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{\baselineskip}
+\usepackage{amsmath,amsfonts,amssymb, siunitx}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{flexisym}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+\pagestyle{fancy}
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  keepspaces=false,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
+}
+%"mystyle" code listing set
+\lstset{style=mystyle}
+\begin{document}
+\lhead{{\bf CSCI 3403 \\ Homework 7} }
+\rhead{{\bf Brennon Lee  \\ Fall 2018, CU-Boulder}}
+\renewcommand{\headrulewidth}{0.4pt}
+\vspace{-3mm}
+\begin{enumerate}
+% QUESTION 1
+\item \textbf{Review Question 10.2} List the three distinct types of locations in a process address space that buffer overflow attacks typically target. \\
+% QUESTION 2
+\item \textbf{Review Question 10.3} What are the possible consequences of a buffer overflow occuring? \\
+% QUESTION 3
+\item \textbf{Review Question 10.9} Describe what a NOP sled is and how it is used in a buffer overflow attack? \\
+% QUESTION 4
+\item \textbf{Problem 10.2} Rewrite the program shown in Figure 10.1a so it is no longer vulnerable to a stack buffer overflow. \\
+% QUESTION 5
+\item \textbf{Problem 10.3} Rewrite the program shown in Figure 10.5a so it is no longer vulnerable to a stack buffer overflow. \\
+% QUESTION 6
+\item \textbf{Problem 10.4}  Rewrite the program shown in Figure 10.7a so it is no longer vulnerable to a stack buffer overflow. \\
+% QUESTION 7
+\item \textbf{Review Question 11.3} List some possible sources of program input. \\
+% QUESTION 8
+\item \textbf{Review Question 11.6} Define a cross-site scripting attack. List an example of such an attack. \\
+\end{enumerate}
+\end{document}
