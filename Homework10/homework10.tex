@@ -39,17 +39,17 @@
 % QUESTION 1
 \item \textbf{Review Question 7.9} Define a reflection attack. \\
 
-\textbf{Answer} \\
+\textbf{A relfection attack is where an attacker sends packets with a spoofed source address to a service running on a network server. The server will respond to the packet sending it to the spoofed source address (which is the actual target). Since the server is just responding to the packets, it is known as the reflector.} \\
 
 % QUESTION 2
 \item \textbf{Review Question 7.10} Define an amplification attack. \\
 
-\textbf{Answer} \\
+\textbf{A variant of reflector attack but differs by generating multiple response packets for each original packet sent. This is achieved by directing the original request to the boradcast address for some network. As a result, all host on that network could potentially respond to the request which would create a flood of responses.} \\
 
 % QUESTION 3
 \item \textbf{Problem 7.2} Using a TCP SYN spoofing attack, the attacker aims to flood the table of TCP connection requests on a system so that it is unable to respond to legitimate connection requests. Consider a server system with a table for 256 connection requests. This system will retry sending the SYN-ACK packet five times when it fails to receive an ACK packet in response, at 30 second intervals, before purging the request from its table. Assume no additional countermeasures are used against this attack and the attacker has filled this table with an initial flood of connection requests. At what rate must the attacker continue to send TCP connection requests to this system in order to ensure that the table remains full? Assuming the TCP SYN packet is 40 bytes in size (ignoring framing overhead), how much bandwidth does the attacker consume to continue this attack? \\
 
-\textbf{Answer} \\
+\textbf{On a system that will retry 5 times at 30 seconds per request, each of the 256 connections will live in the table for (initial 30s + (5 * 30s)) = 3 minutes. To keep the table full, the attacker will have to send 256 / 3 = about 86 TCP connection requests per minute. The bandwidth = 86 * 40 * 8 / 60 = 459 bits per second. } \\
 
 % QUESTION 4
 \item \textbf{Problem 7.3} Consider a distributed variant of the attack we explore in Problem 7.1. Assume the attacker has compromised a number of broadband-connected residential PCs to use as zombie systems. Also assume each such system has an average uplink capacity of 128 Kbps. What is the maximum number of 500-byte ICMP echo request (ping) packets a single zombie PC can send per second? How many such zombie systems would the attacker need to flood a target organization using a 0.5-Mbps link? A 2-Mbps link? Or a 10-Mbps link? Given reports of botnets composed of many thousands of zombie systems, what can you conclude about their controller’s ability to launch DDoS attacks on multiple such organizations simultaneously? Or on a major organization with multiple, much larger network links than we have considered in these problems? \\
