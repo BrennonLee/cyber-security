@@ -46,9 +46,9 @@
 
   \textbf{Intrusion Prevention Systems can block traffic like a firewall does but also makes use of types of algorithms developed for IDSs to determine when to do so.} \\
 
-  \item \textbf{Problem 9.1} As was mentioned in Section 9.3, one approach to defeating the tiny fragment attack is to enforce a minimum length of the transport header that must be contained in the first fragment of an IP packet. If the first fragment is rejected, all subsequent fragments can be rejected. However, the nature of IP is such that fragments may arrive out of order. THus, an intermediate fragment may pass through the filter before the initial fragment is rejected. How can this situation be handled? \\
+  \item \textbf{Problem 9.1} As was mentioned in Section 9.3, one approach to defeating the tiny fragment attack is to enforce a minimum length of the transport header that must be contained in the first fragment of an IP packet. If the first fragment is rejected, all subsequent fragments can be rejected. However, the nature of IP is such that fragments may arrive out of order. Thus, an intermediate fragment may pass through the filter before the initial fragment is rejected. How can this situation be handled? \\
 
-  \textbf{answer} \\
+  \textbf{When packets arrive out of order, one option is to create a table with arrival times and age for each fragment. Then after a certain amount of time passes or several packets are received without the first then resend a request for the first packet while not accepting any new packets until a response is received. If the packets become too old and no response is received, the other fragments / packets can be dropped.} \\
 
   \item \textbf{Problem 9.5} SMTP is the standard protocol for transferring mail between hosts over TCP. A TCP connection is set up between a user agent and a server program. The server listens on TCP port 25 for incoming connection requests. The user end of the connection is on a TCP port number above 1023. Suppose you wish to build a packet filter rule set allowing inbound and outbound SMTP traffic. You generate the following rule set: \\
 
@@ -180,7 +180,27 @@
 
   Design a suitable packet filter rule sets (similar to those shown in Table 9.1) to be implemented on the "External Firewall" and the "Internal Firewall" to satisfy the aftorementioned policy requirements.
 
-  \textbf{answer} \\
+  \begin{center}
+   \begin{tabular}{||c c c c c c c||}
+   \hline
+   Src. Addr & Dest Addr  & Src Port &  Dest Port & Flags & Comment & Action \\ [0.5ex]
+   \hline\hline
+   External & Internal & $>1023$ & $25$ &  & inbound email & Permit \\
+   \hline
+   Internal & External & $25$ & $>1023$ & ACK & inbound email responses & Permit \\
+   \hline
+   Internal & External & $>1023$ & $25$ &  & outbound email & Permit \\
+   \hline
+    External & Internal & $25$ & $>1023$ & ACK & outbound email response & Permit \\
+   \hline
+    Any & Internal DMZ & Any & Any &  & external web requests & Permit \\
+   \hline
+   Any & Any & Any & Any & Any & Any & Deny \\
+  \hline
+  \end{tabular}
+  \end{center}
+
+  \textbf{No clue how to do the rest of these. Probably will be in office hours next week.} \\
 
 \end{enumerate}
 \end{document}

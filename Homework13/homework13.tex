@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{\baselineskip}
+\usepackage{amsmath,amsfonts,amssymb, siunitx}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage{flexisym}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+\pagestyle{fancy}
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  keepspaces=false,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
+}
+%"mystyle" code listing set
+\lstset{style=mystyle}
+\begin{document}
+\lhead{{\bf CSCI 3403 \\ Homework 13} }
+\rhead{{\bf Brennon Lee  \\ Fall 2018, CU-Boulder}}
+\renewcommand{\headrulewidth}{0.4pt}
+\vspace{-3mm}
+\begin{enumerate}
+  % QUESTION 1
+  \item \textbf{Review Question 22.4} What is DKIM \\
+
+  \textbf{answer} \\
+
+  % QUESTION 2
+  \item \textbf{Review Question 22.5} What protocols comprise SSL? \\
+
+  \textbf{answer} \\
+
+  % QUESTION 3
+  \item \textbf{Problem 22.2} Consider the following threats to Web security and describe how each is countered by a particular feature of SSL: \\
+  \begin{enumerate}
+    \item Man-in-the-middle attack: An attacker interposes during key exchange, acting as the client to the server and the server to the client. \\
+
+    \textbf{answer} \\
+
+    \item Password sniffing: Passwords in HTTP or other application traffic are eavesdropped. \\
+
+    \textbf{answer} \\
+
+    \item IP spoofing: Uses forged IP addresses to fool a host into accepting bogus data.\\
+
+    \textbf{answer} \\
+
+    \item IP hijacking: An active, authenticated connection between two hosts is disrupted and the attacker takes the place of one of the hosts.\\
+
+    \textbf{answer} \\
+
+    \item SYN flooding: An attacker sends TCP SYN messages to request a connection but does not respond to the final message to establish the connection fully. The attacked TCP module typically leaves the "half-open connection" around for a few minuts. Repeated SYN messages can clog the TCP module.\\
+
+    \textbf{answer} \\
+
+  \end{enumerate}
+
+  % QUESTION 4
+  \item \textbf{Review Question 23.9} What is a public key infrastructure?\\
+
+  % QUESTION 5
+  \item \textbf{Problem 23.4} Using your Web browser, visit any secure Web site (i.e. one whose URL starts with ``https"). Examine the details of the X.509 certificate used by that site. This is usually accessible by selecting the padlock symbol. Answer the same questions as for Problem 23.3 \\
+
+  \begin{enumerate}
+    \item Identify the key elements in the certificate, including the owner's name and public key, its validity dates, the name of the CA that signed it, and the type and value of signature. \\
+
+    \textbf{anwswer} \\
+
+    \item State whether this is a CA or end-user certificate, and why. \\
+
+    \textbf{anwswer} \\
+
+    \item Indicate whether the certificate is valid or not, and why. \\
+
+    \textbf{anwswer} \\
+
+    \item State whether there are any other obvious problems with the algorithms used in this certificate. \\
+
+    \textbf{anwswer} \\
+
+  \end{enumerate}
+
+  % QUESTION 6
+  \item \textbf{Problem 23.5} Now access the "Trust Store" (list of certificates) used by your Web browser. This is usually accessed via its Preference settings. Access the list of Certificate Authority certificates used by the browser. Pick one, examine the details of its X.509 certificate, and answer the same questions as for Problem 23.3. \\
+
+  \begin{enumerate}
+    \item Identify the key elements in the certificate, including the owner's name and public key, its validity dates, the name of the CA that signed it, and the type and value of signature. \\
+
+    \textbf{answer} \\
+
+    \item State whether this is a CA or end-user certificate, and why. \\
+
+    \textbf{anwswer} \\
+
+    \item Indicate whether the certificate is valid or not, and why. \\
+
+    \textbf{anwswer} \\
+
+    \item State whether there are any other obvious problems with the algorithms used in this certificate. \\
+
+    \textbf{anwswer} \\
+
+  \end{enumerate}
+\end{enumerate}
+\end{document}
