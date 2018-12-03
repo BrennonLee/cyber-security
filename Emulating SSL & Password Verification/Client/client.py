@@ -29,7 +29,6 @@ port = 10001
 
 # open & save server's public key
 f = open('../secret_keys/public.pem','r')
-# server_public_key = RSA.importKey(f.read()).exportKey(format='PEM')
 server_public_key = RSA.importKey(f.read())
 f.close()
 
