@@ -8,17 +8,28 @@
         is provided as a sanity check)
 
     Put your team members' names:
-
-
-
+            Minhchau
+            Andre
+            Brennon
+            Paris
+            Dominic
 """
 
 import socket
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
+
 
 iv = "G4XO4L\X<J;MPPLD"
 
 host = "localhost"
 port = 10001
+
+# open & save server's private key
+f = open('../secret_keys/private.pem','r')
+server_private_key = RSA.importKey(f.read())
+print('server_private_key: {}\n\n'.format(server_private_key))
+f.close()
 
 
 # A helper function. It may come in handy when performing symmetric encryption
@@ -26,9 +37,10 @@ def pad_message(message):
     return message + " " * ((16 - len(message)) % 16)
 
 
-# TODO: Write a function that decrypts a message using the server's private key
+# Write a function that decrypts a message using the server's private key
 def decrypt_key(session_key):
-    pass
+    decryptor = PKCS1_OAEP.new(server_private_key)
+    return decryptor.decrypt(session_key)
 
 
 # TODO: Write a function that decrypts a message using the session key
@@ -99,6 +111,7 @@ def main():
 
                 # Decrypt key from client
                 plaintext_key = decrypt_key(encrypted_key)
+                print('decrypted key is: {}'.format(plaintext_key))
 
                 # Receive encrypted message from client
                 ciphertext_message = receive_message(connection)

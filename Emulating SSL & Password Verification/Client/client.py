@@ -8,33 +8,45 @@
         is provided as a sanity check)
 
     Put your team members' names:
-
-
-
+            Minhchau
+            Andre
+            Brennon
+            Paris
+            Dominic
 """
 
 import socket
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
+
 
 iv = "G4XO4L\X<J;MPPLD"
 
 host = "localhost"
 port = 10001
 
+# open & save server's public key
+f = open('../secret_keys/public.pem','r')
+# server_public_key = RSA.importKey(f.read()).exportKey(format='PEM')
+server_public_key = RSA.importKey(f.read())
+f.close()
 
 # A helper function that you may find useful for AES encryption
 def pad_message(message):
     return message + " "*((16-len(message))%16)
 
 
-# TODO: Generate a random AES key
+# Generate a random AES key
 def generate_key():
-    pass
+    return get_random_bytes(16)
 
-
-# TODO: Takes an AES session key and encrypts it using the server's
-# TODO: public key and returns the value
+# Takes an AES session key and encrypts it using the server's
+# public key and returns the value
 def encrypt_handshake(session_key):
-    pass
+    encryptor = PKCS1_OAEP.new(server_public_key)
+    return encryptor.encrypt(session_key)
 
 
 # TODO: Encrypts the message using AES. Same as server function
@@ -74,11 +86,16 @@ def main():
         # Message that we need to send
         message = user + ' ' + password
 
-        # TODO: Generate random AES key
+        # Generate random AES key
+        session_key = generate_key()
+        print('session key: {}'.format(session_key))
 
-        # TODO: Encrypt the session key using server's public key
+        # Encrypt the session key using server's public key
+        encrypted_key = encrypt_handshake(session_key)
+        print('encrypted session key: {}'.format(encrypted_key))
 
-        # TODO: Initiate handshake
+        # Initiate handshake
+        send_message(sock, encrypted_key)
 
         # Listen for okay from server (why is this necessary?)
         if receive_message(sock).decode() != "okay":
