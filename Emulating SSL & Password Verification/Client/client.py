@@ -48,14 +48,15 @@ def encrypt_handshake(session_key):
     return encryptor.encrypt(session_key)
 
 
-# TODO: Encrypts the message using AES. Same as server function
+# Encrypts the message using AES. Same as server function
 def encrypt_message(message, session_key):
-    pass
+    cipher = AES.new(session_key, AES.MODE_CFB, iv.encode('utf-8'))
+    return cipher.encrypt(pad_message(message).encode('utf-8'))
 
-
-# TODO: Decrypts the message using AES. Same as server function
+# Decrypts the message using AES. Same as server function
 def decrypt_message(message, session_key):
-    pass
+    cipher = AES.new(session_key, AES.MODE_CFB, iv.encode('utf-8'))
+    return cipher.decrypt(message).decode('utf-8')
 
 
 # Sends a message over TCP
@@ -87,11 +88,9 @@ def main():
 
         # Generate random AES key
         session_key = generate_key()
-        print('session key: {}'.format(session_key))
 
         # Encrypt the session key using server's public key
         encrypted_key = encrypt_handshake(session_key)
-        print('encrypted session key: {}'.format(encrypted_key))
 
         # Initiate handshake
         send_message(sock, encrypted_key)
@@ -101,9 +100,14 @@ def main():
             print("Couldn't connect to server")
             exit(0)
 
-        # TODO: Encrypt message and send to server
+        # Encrypt message and send to server
+        encrypted_message = encrypt_message(message, session_key)
+        send_message(sock, encrypted_message)
 
-        # TODO: Receive and decrypt response from server and print
+        # Receive and decrypt response from server and print
+        encrypted_result = receive_message(sock)
+        plaintext_result = decrypt_message(encrypted_result, session_key)
+        print(plaintext_result)
 
     finally:
         print('closing socket')

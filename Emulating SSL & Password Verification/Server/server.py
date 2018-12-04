@@ -14,8 +14,10 @@
             Paris
             Dominic
 """
-
+import uuid
 import socket
+import hashlib
+from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 
@@ -28,7 +30,6 @@ port = 10001
 # open & save server's private key
 f = open('../secret_keys/private.pem','r')
 server_private_key = RSA.importKey(f.read())
-print('server_private_key: {}\n\n'.format(server_private_key))
 f.close()
 
 
@@ -43,14 +44,16 @@ def decrypt_key(session_key):
     return decryptor.decrypt(session_key)
 
 
-# TODO: Write a function that decrypts a message using the session key
+# Write a function that decrypts a message using the session key
 def decrypt_message(client_message, session_key):
-    pass
+    cipher = AES.new(session_key, AES.MODE_CFB, iv.encode('utf-8'))
+    return cipher.decrypt(client_message).decode('utf-8')
 
 
-# TODO: Encrypt a message using the session key
+# Encrypt a message using the session key
 def encrypt_message(message, session_key):
-    pass
+    cipher = AES.new(session_key, AES.MODE_CFB, iv.encode('utf-8'))
+    return cipher.encrypt(pad_message(message).encode('utf-8'))
 
 
 # Receive 1024 bytes from the client
@@ -77,9 +80,8 @@ def verify_hash(user, password):
         for line in reader.read().split('\n'):
             line = line.split("\t")
             if line[0] == user:
-                pass
-                # TODO: Salt password, compute hash, compare, and return
-                # TODO: true if authenticated, false otherwise
+                hashed_password = hashlib.sha512((password + line[1]).encode()).hexdigest()
+                return line[2] == hashed_password
         reader.close()
     except FileNotFoundError:
         return False
@@ -111,14 +113,14 @@ def main():
 
                 # Decrypt key from client
                 plaintext_key = decrypt_key(encrypted_key)
-                print('decrypted key is: {}'.format(plaintext_key))
 
                 # Receive encrypted message from client
                 ciphertext_message = receive_message(connection)
+                print('encrypted message: {}'.format(ciphertext_message))
 
                 # Decrypt message from client
                 plaintext_message = decrypt_message(ciphertext_message, plaintext_key)
-                print(plaintext_message)
+                print('Plain text message: {}'.format(plaintext_message))
 
                 # Split response from user into the username and password
                 user, password = plaintext_message.split()
